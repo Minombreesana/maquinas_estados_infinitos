@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Máquinas de Estados Infinitos — MEI</title>
+  <meta name="description" content="Plataforma de creación e investigación sobre sistemas de aprendizaje automático desde Latinoamérica." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue: 0,0,255;
+      --text: 0,0,0;
+      --maxw: 760px;
+      --gutter: 28px;
+      --grid-line: rgba(0,0,0,.65);
+    }
+    html,body{ margin:0; background:#fff; color: rgb(var(--text)); font-family: "IBM Plex Mono", monospace; font-size:15px; }
+    a{ color: rgb(var(--text)); text-decoration: underline; text-underline-offset: 2px; }
+    a:hover{ text-decoration-thickness: 2px; }
+
+    /* Top bar */
+    .top{ position: sticky; top:0; z-index: 5; background:#fff; border-bottom:1px solid var(--grid-line); }
+    .top__inner{ max-width: 1200px; margin:0 auto; padding: 22px var(--gutter); display:grid; grid-template-columns: 1fr auto 1fr; align-items:center; }
+    .top__date{ text-align:center; font-size:12px; opacity:.8; }
+    .top__about{ justify-self:end; font-size:14px; }
+
+    /* Banda azul con logo + ticker */
+    .ticker-wrap{ border-bottom:1px solid var(--grid-line); border-top:1px solid var(--grid-line); background: rgb(var(--blue)); color:#fff; overflow:hidden; position: relative; display:flex; flex-direction:column; align-items:center; }
+    .ticker-logo{ padding: 24px 0 12px; }
+    .ticker-logo img{ max-height: 64px; height:auto; }
+    .ticker{ display:flex; gap:48px; padding: 12px 0 24px; width:max-content; animation: slide 32s linear infinite; }
+    .ticker span{ white-space:nowrap; font-weight:700; letter-spacing:.5px; font-size: clamp(16px, 2.5vw, 28px); }
+    @keyframes slide{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
+
+    /* Section: Manifiesto */
+    .section{ max-width: var(--maxw); padding: 40px var(--gutter); margin: 0 auto; }
+    .section--divided{ border-bottom:1px solid var(--grid-line); }
+    /* ← quitar borde inferior solo del manifiesto para que no duplique con la tríada */
+    #manifiesto.section--divided{ border-bottom:none; }
+    h2{ color: rgb(var(--blue)); font-size: 10px; margin: 0 0 16px; }
+    p{ font-size: 16px; line-height: 1.6; margin: 0 0 16px; }
+    #manifiesto p{ text-align: justify; text-justify: inter-word; }
+
+    /* Triad columns */
+    .triad{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top:1px solid var(--grid-line);   /* línea superior continua de la tríada */
+      border-bottom:1px solid var(--grid-line);
+    }
+    .cell{ padding: 0; border-right:1px solid var(--grid-line); overflow:hidden; position:relative; }
+    .cell:last-child{ border-right:none; }
+    .cell h3{ color: rgb(var(--blue)); font-size: 18px; margin: 0; padding:12px var(--gutter); border-bottom:1px solid var(--grid-line); }
+    .cell p{ margin:0; padding:12px var(--gutter); font-size:14px; line-height:1.4; }
+
+    /* About section */
+    .about-section{ display:flex; align-items:flex-start; gap:20px; }
+    .about-section img{ max-width:120px; height:auto; border:1px solid var(--grid-line); }
+
+    /* Footer */
+    footer{ border-top:1px solid var(--grid-line); }
+    .footer__inner{ max-width: 1200px; padding: 20px var(--gutter); margin: 0 auto; font-size: 12px; display:flex; justify-content: space-between; gap:12px; align-items:center; }
+
+    /* Accessibility */
+    :focus-visible{ outline: 2px solid rgba(var(--blue),.6); outline-offset: 2px; }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .triad{ grid-template-columns: 1fr; }
+      .cell{ border-right:none; border-bottom:1px solid var(--grid-line); }
+      .cell:last-child{ border-bottom:none; }
+      .ticker-logo img{ max-height: 48px; }
+      .about-section{ flex-direction:column; align-items:center; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- TOP BAR -->
+  <div class="top">
+    <div class="top__inner">
+      <div></div>
+      <div class="top__date" id="js-date">—</div>
+      <a class="top__about" href="#about">ABOUT</a>
+    </div>
+  </div>
+
+  <!-- BANDA AZUL CON LOGO Y TEXTO -->
+  <div class="ticker-wrap" role="region" aria-label="Máquinas de Estados Infinitos">
+    <div class="ticker-logo">
+      <img src="logo-mei.png" alt="Logo MEI" />
+    </div>
+    <div class="ticker" aria-hidden="true">
+      <span>MÁQUINAS DE ESTADOS INFINITOS MÁQUINAS DE ESTADOS INFINITOS</span>
+      <span>MÁQUINAS DE ESTADOS INFINITOS MÁQUINAS DE ESTADOS INFINITOS</span>
+      <span>MÁQUINAS DE ESTADOS INFINITOS MÁQUINAS DE ESTADOS INFINITOS</span>
+    </div>
+  </div>
+
+  <!-- MANIFIESTO -->
+  <section class="section section--divided" id="manifiesto">
+    <p><strong>Máquinas de Estados Infinitos</strong> es una plataforma de creación e investigación sobre sistemas de aprendizaje automático, pensada desde Latinoamérica. Surge como un espacio para indagar críticamente las tecnologías que modelan nuestras formas de ver, decidir y narrar, y para explorar su potencial poético, especulativo y situado. No se trata solo de observar estas máquinas desde afuera, sino de entrar en diálogo con sus lógicas, diseccionarlas, intervenirlas, imaginar con ellas.</p>
+    <p>Hay máquinas que siguen reglas. Y otras que aprenden a cambiar las reglas a medida que avanzan. Las máquinas de estado finito fueron diseñadas para modelar sistemas predecibles: configuraciones limitadas, transiciones claras, marcos cerrados. Pero los sistemas de aprendizaje automático que hoy nos atraviesan exceden esa lógica. Aprenden, se adaptan, se desbordan. Son, quizás, máquinas de estado infinito: abiertas, inestables, atravesadas por la incertidumbre.</p>
+    <p>Pensar desde esa infinitud latente es también reconocer que estos sistemas no operan en coordenadas familiares. Como en el comportamiento cuántico de una partícula, su estado no es un punto fijo, sino una superposición de probabilidades. No están definidos por certezas, sino por lo posible. Operan en espacios matemáticos de alta dimensionalidad —espacios que exceden nuestra experiencia sensible, pero donde es posible construir, calcular, imaginar.</p>
+    <p>Los sistemas de aprendizaje automático han abierto la posibilidad de acceder a esos territorios abstractos: espacios complejos donde se codifican patrones, afectos, decisiones. En cierto sentido, son contenedores de conocimiento no-lineal, estructuras para modelar lo que no es evidente, para habitar lo indeterminado.</p>
+    <p>Desde esa intuición, nace <strong>Máquinas de Estados Infinitos</strong>: una plataforma para acercarse con la curiosidad que estos sistemas exigen, habitándolos de forma crítica, y entendiendo la creación y la especulación como métodos legítimos de investigación. Es un espacio para construir conocimiento en torno a los MEI, a través de la disección de sus estructuras, en busca de las poéticas que encarnan sus propias lógicas de operación.</p>
+    <p><strong>MEI</strong> es una invitación a pensar estos sistemas no como dispositivos neutros, sino como formas de conocimiento que nos interpelan. Un lugar para escuchar sus resonancias, desactivar sus automatismos y explorar otras maneras de estar en común, entre lenguajes, cuerpos y máquinas.</p>
+  </section>
+
+  <!-- TRIADA -->
+  <section class="triad" id="triada">
+    <article class="cell" id="maquinas">
+      <h3>MÁQUINAS</h3>
+      <p>Los cuerpos técnicos. Modelos, datos, algoritmos, infraestructuras. Lo visible y lo profundo. Lo que se entrena, lo que se ajusta, lo que aprende, lo que se pierde.</p>
+    </article>
+    <article class="cell" id="estados">
+      <h3>ESTADOS</h3>
+      <p>Lo situado. Las condiciones en las que estos sistemas se manifiestan: sus geografías, afectos, usos actuales y políticas. No un estado ideal, sino un estado en movimiento.</p>
+    </article>
+    <article class="cell" id="infinitos">
+      <h3>INFINITOS</h3>
+      <p>La creación. Arte, ficción, prototipos, derivas. El aprendizaje automático como campo de posibilidad.</p>
+    </article>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="about-section">
+      <img src="portrait_blue_ONLY_FINE.png" alt="Retrato Ana Guzmán" />
+      <div>
+        <h3 style="margin:0 0 8px; font-size:16px; color:rgb(var(--blue));">Ana Guzmán</h3>
+        <p style="font-size:13px; line-height:1.6;">
+          Es diseñadora de Imagen y Sonido por la Universidad de Buenos Aires (UBA) y
+          especialista en Inteligencia Artificial por la Facultad de Ingeniería de la misma universidad.
+          Lidera el MediaLab de la Cinemateca de Bogotá y es la creadora de la Estación Espacial Kennedy.
+        </p>
+        <p style="font-size:13px; line-height:1.6;">Contacto: <a href="mailto:contacto@maquinasestadosinfinitos.net">contacto@maquinasestadosinfinitos.net</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer__inner">
+      <div>© <span id="y"></span> MEI</div>
+      <div><a href="#manifiesto">Texto</a> · <a href="#triada">Zonas</a> · <a href="#about">About</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const d = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    const stamp = `${pad(d.getDate())}·${pad(d.getMonth()+1)}·${d.getFullYear()}`;
+    document.getElementById('js-date').textContent = stamp;
+    document.getElementById('y').textContent = d.getFullYear();
+  </script>
+</body>
+</html>
