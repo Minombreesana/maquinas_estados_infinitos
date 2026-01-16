@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>INFINITOS — MEI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue: 0,0,255;
+      --text: 0,0,0;
+      --maxw: 760px;
+      --gutter: 28px;
+      --grid-line: rgba(0,0,0,.65);
+    }
+    html,body{ margin:0; background:#fff; color: rgb(var(--text)); font-family: "IBM Plex Mono", monospace; font-size:15px; }
+    
+    /* Top bar */
+    .top{ position: sticky; top:0; z-index: 5; background:#fff; border-bottom:1px solid var(--grid-line); }
+    .top__inner{ max-width: 1200px; margin:0 auto; padding: 22px var(--gutter); display:grid; grid-template-columns: 1fr auto 1fr; align-items:center; }
+    .top__date{ text-align:center; font-size:12px; opacity:.8; }
+    
+    /* Botón VOLVER estilo ABOUT del Index */
+    .top__back{ 
+      justify-self:end; 
+      font-size:14px; 
+      text-decoration: underline; 
+      text-underline-offset: 2px;
+      font-weight: normal; 
+      color: rgb(var(--text));
+    }
+    .top__back:hover{ text-decoration-thickness: 2px; }
+
+    /* Banda azul Logo y Texto en línea */
+    .ticker-wrap-static{ 
+      border-bottom:1px solid var(--grid-line); 
+      border-top:1px solid var(--grid-line); 
+      background: rgb(var(--white)); 
+      color:#0000ff; 
+      display:flex; 
+      justify-content: Left;
+      align-items: Left;
+      gap: 24px;
+      padding: 15px 50px; 
+    }
+    .ticker-wrap-static img{ max-height: 40px; width: auto; }
+    .ticker-wrap-static span{ 
+      font-weight:700; 
+      letter-spacing:.5px; 
+      font-size: clamp(18px, 2.5vw, 28px); 
+      text-transform: uppercase;
+    }
+
+    /* Listado de proyectos */
+    .list-container { max-width: 1200px; margin: 60px auto; padding: 0 var(--gutter); }
+    .list-header { color: rgb(var(--blue)); font-size: 10px; text-transform: uppercase; margin-bottom: 32px; letter-spacing: 1px; }
+    
+    .project-entry { 
+        display: grid; 
+        grid-template-columns: 240px 1fr; 
+        gap: 40px; 
+        padding: 40px 0; 
+        border-top: 1px solid var(--grid-line);
+        text-decoration: none;
+        color: inherit;
+        transition: opacity 0.2s;
+    }
+    .project-entry:hover { opacity: 0.7; }
+    .project-entry:last-child { border-bottom: 1px solid var(--grid-line); }
+
+    .project-img { width: 100%; border: 1px solid var(--grid-line); filter: grayscale(100%); }
+    .project-info h2 { font-size: 20px; margin: 0 0 12px; font-weight: 500; text-transform: uppercase; }
+    .project-info p { font-size: 15px; line-height: 1.5; margin: 0; opacity: 0.8; }
+    .project-tag { font-size: 11px; text-transform: uppercase; color: rgb(var(--blue)); margin-bottom: 8px; display: block; }
+
+    /* Footer */
+    footer{ border-top:1px solid var(--grid-line); margin-top: 80px; }
+    .footer__inner{ max-width: 1200px; padding: 20px var(--gutter); margin: 0 auto; font-size: 12px; display:flex; justify-content: space-between; align-items:center; }
+
+    @media (max-width: 768px){
+      .project-entry { grid-template-columns: 1fr; gap: 20px; }
+      .project-img { max-width: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div class="top__inner">
+      <div></div>
+      <div class="top__date" id="js-date">—</div>
+      <a class="top__back" href="index.html">VOLVER</a>
+    </div>
+  </div>
+
+  <div class="ticker-wrap-static">
+    <img src="logo-mei-azul.png" alt="Logo MEI" />
+    <span> | INFINITOS</span>
+  </div>
+
+  <main class="list-container">
+    <div class="list-header">INFINITOS — LISTADO DE ENTRADAS</div>
+
+    <a href="el-eco-en-el-vector.html" class="project-entry">
+        <img src="atlas_autoencoder.png" alt="Atlas de la memoria" class="project-img">
+        <div class="project-info">
+            <span class="project-tag">Investigación-Creación / 2023</span>
+            <h2>El eco en el vector: un espacio matemático del imaginario familiar</h2>
+            <p>Un ejercicio sobre el archivo familiar colombiano a través de representaciones latentes, clustering y entornos inmersivos en realidad virtual.</p>
+        </div>
+    </a>
+
+    <div class="project-entry" style="opacity: 0.4; cursor: default;">
+        <div style="width: 100%; aspect-ratio: 4/3; background: #eee; border: 1px dashed var(--grid-line);"></div>
+        <div class="project-info">
+            <span class="project-tag">Próximamente</span>
+            <h2>Rocas Lunares</h2>
+            <p>Proyecto de invesitgación-creación sobre simulación y simulacro en el imaginario espacial desde Latinoamérica.</p>
+        </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer__inner">
+      <div>© <span id="y"></span> MEI</div>
+      <div>Ana Guzmán</div>
+    </div>
+  </footer>
+
+  <script>
+    const d = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('js-date').textContent = `${pad(d.getDate())}·${pad(d.getMonth()+1)}·${d.getFullYear()}`;
+    document.getElementById('y').textContent = d.getFullYear();
+  </script>
+</body>
+</html>
